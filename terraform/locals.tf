@@ -10,12 +10,12 @@ locals {
   max_capacity            = 1.0
   # Aurora MySQL 3, db.t3.medium or t4g.medium is the minimum.
   provisioned = {
-    count                        = 0
+    count                        = 1
     instance_class               = "db.t4g.medium"
     performance_insights_enabled = false
   }
   serverless = {
-    count                        = 2
+    count                        = 1
     instance_class               = "db.serverless"
     performance_insights_enabled = false
   }
