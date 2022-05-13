@@ -19,7 +19,7 @@ resource "aws_security_group" "this" {
     "Name" = "${local.prefix}-sg"
   }
   vpc_id      = module.vpc.vpc_id
-  description = "Security Group for Aurora"
+  description = "for Aurora"
   egress = [
     {
       cidr_blocks = [
@@ -53,13 +53,13 @@ resource "aws_security_group" "this" {
 }
 
 resource "aws_db_subnet_group" "this" {
-  description = "DBSubnets for Aurora"
+  description = "for Aurora"
   name        = "${local.prefix}-db-subnet-group"
   subnet_ids  = module.vpc.private_subnets
 }
 
 resource "aws_rds_cluster_parameter_group" "this" {
-  description = "DBClusterParameterGroup for Aurora Cluster"
+  description = "for Aurora"
   family      = local.parmeter_group_family
   name        = "${local.prefix}-aurora-cluster-parameter-group"
   tags = {
@@ -83,7 +83,7 @@ resource "aws_rds_cluster_parameter_group" "this" {
 }
 
 resource "aws_db_parameter_group" "this" {
-  description = "DBParameterGroup for Aurora instance"
+  description = "for Aurora"
   family      = local.parmeter_group_family
   name        = "${local.prefix}-db-parameter-group"
   tags = {
@@ -108,7 +108,7 @@ resource "aws_db_parameter_group" "this" {
 }
 
 resource "aws_kms_key" "this" {
-  description             = "Key for encrypting aurora"
+  description             = "for aurora"
   policy = jsonencode(
     {
       Statement = [
