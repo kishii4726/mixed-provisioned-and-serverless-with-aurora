@@ -108,7 +108,7 @@ resource "aws_db_parameter_group" "this" {
 }
 
 resource "aws_kms_key" "this" {
-  description             = "for aurora"
+  description = "for aurora"
   policy = jsonencode(
     {
       Statement = [
@@ -143,13 +143,13 @@ resource "aws_rds_cluster" "this" {
     "ap-northeast-1c",
     "ap-northeast-1d",
   ]
-  cluster_identifier              = "${local.prefix}-cluster"
+  cluster_identifier = "${local.prefix}-cluster"
   serverlessv2_scaling_configuration {
     min_capacity = local.min_capacity
     max_capacity = local.max_capacity
   }
-  storage_encrypted            = true
-  kms_key_id                   = aws_kms_key.this.arn
+  storage_encrypted               = true
+  kms_key_id                      = aws_kms_key.this.arn
   backup_retention_period         = local.backup_retention_period
   db_cluster_parameter_group_name = aws_rds_cluster_parameter_group.this.name
   db_subnet_group_name            = aws_db_subnet_group.this.name
