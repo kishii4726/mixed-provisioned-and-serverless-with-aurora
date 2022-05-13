@@ -1,0 +1,1 @@
+# mixed-provisioned-and-serverless-with-aurora
