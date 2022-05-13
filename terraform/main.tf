@@ -144,11 +144,15 @@ resource "aws_rds_cluster" "this" {
     "ap-northeast-1d",
   ]
   cluster_identifier              = "${local.prefix}-cluster"
+  serverlessv2_scaling_configuration {
+    min_capacity = local.min_capacity
+    max_capacity = local.max_capacity
+  }
+  storage_encrypted            = true
+  kms_key_id                   = aws_kms_key.this.arn
   backup_retention_period         = local.backup_retention_period
-  copy_tags_to_snapshot           = false
   db_cluster_parameter_group_name = aws_rds_cluster_parameter_group.this.name
   db_subnet_group_name            = aws_db_subnet_group.this.name
-  deletion_protection             = true
   enabled_cloudwatch_logs_exports = [
     "audit",
     "error",
@@ -158,18 +162,12 @@ resource "aws_rds_cluster" "this" {
   preferred_backup_window      = "18:00-18:30"
   preferred_maintenance_window = "sun:17:00-sun:17:30"
   skip_final_snapshot          = true
-  storage_encrypted            = true
-  kms_key_id                   = aws_kms_key.this.arn
   tags = {
     "Name" = "${local.prefix}-cluster"
   }
   vpc_security_group_ids = [
     aws_security_group.this.id,
   ]
-  serverlessv2_scaling_configuration {
-    min_capacity = local.min_capacity
-    max_capacity = local.max_capacity
-  }
   lifecycle {
     ignore_changes = [
       availability_zones,
